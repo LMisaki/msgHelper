@@ -1,0 +1,15 @@
+server:
+  port: 8890
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${msg.datasource.driver-class-name}
+      #禁用了ssl检测，用于测试环境
+      url: jdbc:mysql://${msg.datasource.host}:${msg.datasource.port}/${msg.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${msg.datasource.username}
+      password: ${msg.datasource.password}
