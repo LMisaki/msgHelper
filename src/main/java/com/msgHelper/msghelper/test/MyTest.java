@@ -3,9 +3,11 @@ package com.msgHelper.msghelper.test;
 import com.msgHelper.msghelper.utils.RsaUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
-import java.util.Map;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @Slf4j
 public class MyTest {
@@ -22,5 +24,23 @@ public class MyTest {
 
         result =RsaUtil.decryptByPrivateKey("nn8/j1jRmaYhNVJMngyi6QY2/sbKAfu8/9WHulPOSi9mu8b5v5zv/rkdh3pEEXsKxSJvbORFpKSj7jvPjRRLMq75Vd4YUhaqEiEqedi3SnlaUkg9563xYxg5Pb3uiHgdPk0jY5tfOZvdrGZ8py7EHkr8F7i80y/hZHm/J5xAXdI=",private_Key);
         log.info("加密后的数据为：{}",result);
+    }
+
+    @Autowired
+    DataSource dataSource;
+    @Test
+    void contextLoads() {
+        //查看数据源
+        System.out.println(dataSource.getClass());
+        //获得数据库连接
+        try {
+            Connection connection = dataSource.getConnection();
+            System.out.println(connection);
+            //关闭连接
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
