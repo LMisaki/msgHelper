@@ -1,5 +1,6 @@
 package com.msgHelper.msghelper.moodel.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,11 +32,14 @@ public class User implements Serializable {
     private String sex;
 
     //身份证号
+    @JsonProperty(value = "id_number")
     private String idNumber;
 
     //账户类型
+    @JsonProperty(value = "account_type")
     private String accountType;
 
     //注册时间
+    @JsonProperty(value = "creat_time")
     private LocalDateTime createTime;
 }

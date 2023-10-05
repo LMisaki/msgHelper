@@ -26,6 +26,12 @@ public class UserServiceImpl implements UserService {
 
 
 
+    /**
+     * Desc: 登录操作
+     * @param data
+     * @return {@link User}
+     * @author L_Misaki
+     */
     @Override
     public User Login(String data) throws Exception {
 
