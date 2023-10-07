@@ -17,7 +17,7 @@ public class Material {
 
     private Integer id;
 
-    //不同用户的分组仓库id？？
+    //不同用户的分组仓库id
     @JsonProperty(value = "material_lib_id")
     private Integer materialLibId;
 

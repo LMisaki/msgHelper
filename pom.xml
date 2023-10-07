@@ -53,24 +53,27 @@
             <version>3.0.2</version>
         </dependency>
 
-<!--        <dependency>
-            <groupId></groupId>
-            <artifactId>mysq</artifactId>
-            <version></version>
-        </dependency>-->
-
         <!--Hutool工具类-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.8.16</version>
         </dependency>
+
+        <!--pageHelper 数据库查询分页工具-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+
         <!--ali开发的JSON库，fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>2.0.32</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

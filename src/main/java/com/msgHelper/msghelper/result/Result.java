@@ -14,6 +14,8 @@ public class Result<T> implements Serializable {
     private Integer errno; //编码：0成功，它数字为失败,对应相应的错误编号
     private T data; //数据
 
+    private String errmsg;  //错误信息
+
     public static <T> Result<T> success() {
         Result<T> result = new Result<T>();
         result.errno = 0;
