@@ -16,7 +16,7 @@ public class MaterialDTO {
     @JsonProperty(value = "material_lib_id")
     private Integer materialLibId;
 
-    //具体的分组
+    //当前选中哪个分组的id
     @JsonProperty(value = "material_lg_id")
     private Integer materialLgId;
 

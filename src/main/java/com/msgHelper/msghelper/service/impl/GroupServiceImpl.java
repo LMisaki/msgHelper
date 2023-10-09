@@ -22,7 +22,7 @@ public class GroupServiceImpl implements GroupService {
      * @return {@link List<MaterialGroup>}
      * @author L_Misaki
      */
-    public List<MaterialGroup> getAllGroups() {
-        return materialGroupMapper.getAllGroups();
+    public List<MaterialGroup> getAllGroups(Integer accountId) {
+        return materialGroupMapper.getAllGroupsById(accountId);
     }
 }

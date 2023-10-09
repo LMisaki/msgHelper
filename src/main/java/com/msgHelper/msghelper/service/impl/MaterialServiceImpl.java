@@ -27,7 +27,8 @@ public class MaterialServiceImpl implements MaterialService {
 
         /*将 空格 替换为 .* 用于正则表达式 查找关键字*/
         if (materialDTO.getKeywords() !=  null){
-            materialDTO.setKeywords(materialDTO.getKeywords().replace(" ", ".*"));
+//            materialDTO.setKeywords(materialDTO.getKeywords().replace(" ", ".*"));
+            materialDTO.setKeywords("con.*");
         }
 
         log.info("查询关键词为：{}",materialDTO.getKeywords());

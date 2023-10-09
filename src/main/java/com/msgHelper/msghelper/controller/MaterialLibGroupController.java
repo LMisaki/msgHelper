@@ -1,5 +1,8 @@
 package com.msgHelper.msghelper.controller;
 
+import com.msgHelper.msghelper.annotation.ParameterModel;
+import com.msgHelper.msghelper.moodel.dto.MaterialDTO;
+import com.msgHelper.msghelper.moodel.dto.MaterialLibGroupDTO;
 import com.msgHelper.msghelper.moodel.entity.MaterialGroup;
 import com.msgHelper.msghelper.moodel.vo.MaterialGroupVO;
 import com.msgHelper.msghelper.result.Result;
@@ -21,10 +24,12 @@ public class MaterialLibGroupController {
 
     //TODO 需要改写成先获取用户，再获取用户id的分组
     @GetMapping
-    public Result<MaterialGroupVO> GetAllGroups(String str){
-        log.info("接收的参数为：{}",str);
+    public Result<MaterialGroupVO> GetAllGroups(@ParameterModel MaterialLibGroupDTO materialLibGroupDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+        materialLibGroupDTO.setMaterialLibId(accountId);
+        log.info("接收的参数为：{}",materialLibGroupDTO);
 
-        List<MaterialGroup> list =groupService.getAllGroups();
+        //返回所有分组，如果是新增，则先新增再返回所有
+        List<MaterialGroup> list =groupService.getAllGroups(accountId);
 
         MaterialGroupVO vo = MaterialGroupVO.builder()
                 .list(list)
