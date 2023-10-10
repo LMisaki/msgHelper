@@ -17,7 +17,7 @@ public class MaterialLibGroupDTO {
     @JsonProperty(value = "material_lib_id")
     private Integer materialLibId;
 
-    //创建分组,null为不创建，不知道干嘛的
+    //创建分组,
     @JsonProperty(value = "create_type")
     private  Integer createType;
     //签名信息

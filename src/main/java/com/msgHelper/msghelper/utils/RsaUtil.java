@@ -1,6 +1,8 @@
 package com.msgHelper.msghelper.utils;
 
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.Cipher;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -8,7 +10,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-
 public class RsaUtil {
 
     //签名算法名称

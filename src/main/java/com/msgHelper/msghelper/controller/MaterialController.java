@@ -2,14 +2,13 @@ package com.msgHelper.msghelper.controller;
 
 
 import com.msgHelper.msghelper.annotation.ParameterModel;
-import com.msgHelper.msghelper.mapper.MaterialMapper;
 import com.msgHelper.msghelper.moodel.dto.MaterialDTO;
 import com.msgHelper.msghelper.moodel.entity.Material;
 import com.msgHelper.msghelper.moodel.vo.MaterialVO;
 import com.msgHelper.msghelper.result.Result;
 import com.msgHelper.msghelper.service.intf.MaterialService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -27,10 +26,9 @@ public class MaterialController {
     private MaterialService materialService;
 
 
-    //TODO 暂时没解决参数问题，后面要改成分页查询
     /**
      * Desc: 分页查询
-     * @return {@link Result< MaterialVO>}
+     * @return {@link Result<MaterialVO>}
      * @author L_Misaki
      */
     @GetMapping
@@ -39,6 +37,7 @@ public class MaterialController {
         materialDTO.setMaterialLibId(accountId);
 
         log.info("接收的消息为:{}",materialDTO);
+
 
         List<Material> list= materialService.pageQuery(materialDTO);
         MaterialVO vo = MaterialVO.builder()

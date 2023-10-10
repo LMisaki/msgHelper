@@ -1,7 +1,7 @@
 package com.msgHelper.msghelper.service.impl;
 
 import com.msgHelper.msghelper.mapper.MaterialGroupMapper;
-import com.msgHelper.msghelper.moodel.entity.MaterialGroup;
+import com.msgHelper.msghelper.moodel.entity.MaterialLibGroup;
 import com.msgHelper.msghelper.service.intf.GroupService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ public class GroupServiceImpl implements GroupService {
     /**
      * Desc: 返回所有分组
      * @param
-     * @return {@link List<MaterialGroup>}
+     * @return {@link List< MaterialLibGroup >}
      * @author L_Misaki
      */
-    public List<MaterialGroup> getAllGroups(Integer accountId) {
+    public List<MaterialLibGroup> getAllGroups(Integer accountId) {
         return materialGroupMapper.getAllGroupsById(accountId);
     }
 }

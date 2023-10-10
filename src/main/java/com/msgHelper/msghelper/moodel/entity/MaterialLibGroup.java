@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MaterialGroup implements Serializable {
+public class MaterialLibGroup implements Serializable {
     @Serial
     private static final long serialVersionUID = 8988769824904497024L;
 

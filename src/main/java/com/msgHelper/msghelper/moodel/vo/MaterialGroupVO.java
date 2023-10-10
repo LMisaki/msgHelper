@@ -1,6 +1,6 @@
 package com.msgHelper.msghelper.moodel.vo;
 
-import com.msgHelper.msghelper.moodel.entity.MaterialGroup;
+import com.msgHelper.msghelper.moodel.entity.MaterialLibGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MaterialGroupVO {
-    private List<MaterialGroup> list;
+    private List<MaterialLibGroup> list;
 }
