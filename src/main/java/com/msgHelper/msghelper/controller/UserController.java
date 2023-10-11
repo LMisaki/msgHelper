@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     //TODO 增加验证码校验
-    @PostMapping("/**")
+    @PostMapping("/Login")
     public Result<UserLoginVO> Login(String data) throws Exception {
 
         User user =userService.Login(data);

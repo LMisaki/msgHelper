@@ -2,29 +2,26 @@ package com.msgHelper.msghelper.filter;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.Order;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
-import java.io.IOException;
-import java.util.Arrays;
+import java.io.*;
 import java.util.Map;
 import java.util.TreeSet;
 
 @Slf4j
-@Order(1)
-@WebFilter("/*")
 public class SignAuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("过滤器初始化成功");
-        System.out.println("过滤器初始化成功");
     }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) rep;
 
@@ -43,10 +40,12 @@ public class SignAuthFilter implements Filter {
             //对参数进行排序，与前端保持一致
             TreeSet<String> set = new TreeSet<>(map.keySet());
             for (String s:set){
-                if(s.equals("timestamp") || s.equals("signature")) continue;
+                if(s.equals("signature")) continue;
+                String temp = map.get(s)[0];
+                if (temp.equals("")) continue;
                 data.append(s);
                 data.append("=");
-                data.append(Arrays.toString(map.get(s)));
+                data.append(temp);
                 data.append("&");
             }
             data.deleteCharAt(data.length()-1);
@@ -54,10 +53,16 @@ public class SignAuthFilter implements Filter {
 
         }else {
 
-        }
+            // 这里将原始request传入，读出流并存储
+            BodyReaderRequestWrapper requestWrapper = new BodyReaderRequestWrapper(request);
 
-        //获取时间戳
-        String time= Arrays.toString(map.get("timestamp"));
+            String requestBody = requestWrapper.getRequestBody();
+            data.append(requestBody.split("name=\"data\"")[1].trim().split("------")[0].trim());
+
+            //将String对象转为JSON对象
+            //JSONObject jsonObject = JSONObject.parseObject(String.valueOf(data));
+            log.info("这是Post请求中的data数据,{}",data);
+        }
 
         //获取token
         String token = request.getHeader("HTTP_X_YS_ACCOUNT_TOKEN");
@@ -66,8 +71,8 @@ public class SignAuthFilter implements Filter {
         StringBuilder sign = new StringBuilder();
         sign.append(url);
         sign.append(data);
-        sign.append(time);
-        sign.append(token);
+
+        //sign.append(token);
         log.info("最后拼接的结果为：{}",sign);
 
         //计算md5
@@ -80,5 +85,49 @@ public class SignAuthFilter implements Filter {
     @Override
     public void destroy() {
 
+    }
+
+    public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
+        // 将流中的内容保存
+        private final byte[] buff;
+        public BodyReaderRequestWrapper(HttpServletRequest request) throws IOException {
+            super(request);
+            InputStream is = request.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int len;
+            while ((len = is.read(b)) != -1) {
+                baos.write(b, 0, len);
+            }
+            buff = baos.toByteArray();
+        }
+        @Override
+        public ServletInputStream getInputStream() throws IOException {
+            final ByteArrayInputStream bais = new ByteArrayInputStream(buff);
+            return new ServletInputStream() {
+                @Override
+                public boolean isFinished() {
+                    return false;
+                }
+                @Override
+                public boolean isReady() {
+                    return false;
+                }
+                @Override
+                public void setReadListener(ReadListener listener) {
+                }
+                @Override
+                public int read() throws IOException {
+                    return bais.read();
+                }
+            };
+        }
+        @Override
+        public BufferedReader getReader() throws IOException {
+            return new BufferedReader(new InputStreamReader(getInputStream()));
+        }
+        public String getRequestBody() {
+            return new String(buff);
+        }
     }
 }

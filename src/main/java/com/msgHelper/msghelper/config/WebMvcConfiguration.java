@@ -29,7 +29,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean registrationBean() {
        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new SignAuthFilter());
-       filterRegistrationBean.addUrlPatterns("/msghelper/api/v1/MaterialDetail/List/*");
+       filterRegistrationBean.addUrlPatterns("/msghelper/api/v1/MaterialDetail/*");
+       filterRegistrationBean.addUrlPatterns("/msghelper/api/v1/MaterialLibGroup/*");
+       filterRegistrationBean.addInitParameter("Login", "/msghelper/api/v1/Material/*");
+
        return filterRegistrationBean;
     }
 }
