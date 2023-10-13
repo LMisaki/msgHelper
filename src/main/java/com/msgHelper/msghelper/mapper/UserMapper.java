@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
-    @Select("select * from msghelper.user where mobile= #{mobile}")
-    User getByIphone(String mobile);
+    @Select("select * from msghelper.user where mobile= #{mobile} and status =#{status}")
+    User getByIphone(String mobile,Integer status);
 }

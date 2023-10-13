@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.Map;
 import java.util.TreeSet;
 
+//TODO 完善Post请求和数据解析
 @Slf4j
 public class SignAuthFilter implements Filter {
     @Override
@@ -26,8 +27,7 @@ public class SignAuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) rep;
 
         //获取签名函数需要的URL和参数
-        StringBuffer url = request.getRequestURL();
-        log.info("URL为：{}",url);
+        String url = String.valueOf(request.getRequestURL());
 
         Map<String, String[]> map = request.getParameterMap();// 获取参数映射
 
@@ -49,7 +49,6 @@ public class SignAuthFilter implements Filter {
                 data.append("&");
             }
             data.deleteCharAt(data.length()-1);
-            log.info("排序后的数据为：{}", data);
 
         }else {
 
@@ -66,20 +65,16 @@ public class SignAuthFilter implements Filter {
 
         //获取token
         String token = request.getHeader("HTTP_X_YS_ACCOUNT_TOKEN");
-        log.info("获取的Token为：{}",token);
 
-        StringBuilder sign = new StringBuilder();
-        sign.append(url);
-        sign.append(data);
-
-        //sign.append(token);
-        log.info("最后拼接的结果为：{}",sign);
+        String sign = url+data;
 
         //计算md5
-        String md5 = DigestUtil.md5Hex(String.valueOf(sign));
-        log.info("最终的md5值是：{}",md5);
+        String md5 = DigestUtil.md5Hex((sign));
 
-        chain.doFilter(req,rep);
+        if(method.equals("GET")&&md5.equals(map.get("signature")[0])){
+            log.info("签名符合，放行");
+            chain.doFilter(req,rep);
+        }
     }
 
     @Override

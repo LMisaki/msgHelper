@@ -31,6 +31,9 @@ public class User implements Serializable {
     //性别 0 女 1 男
     private String sex;
 
+    //当前状态
+    private Integer status;
+
     //身份证号
     @JsonProperty(value = "id_number")
     private String idNumber;

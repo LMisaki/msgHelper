@@ -26,7 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         resolvers.add(new UnderlineToCamelArgumentResolver(true));
     }
 
-    @Bean
+/*    @Bean
     public FilterRegistrationBean registrationBean() {
        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new SignAuthFilter());
        filterRegistrationBean.addUrlPatterns("/msghelper/api/v1/MaterialDetail/*");
@@ -34,5 +34,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
        filterRegistrationBean.addInitParameter("Login", "/msghelper/api/v1/Material/*");
 
        return filterRegistrationBean;
-    }
+    }*/
 }

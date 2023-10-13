@@ -24,6 +24,9 @@ public class MaterialDTO {
     @JsonProperty(value = "content_type")
     private Integer contentType;
 
+    //当前状态
+    private Integer status;
+
     private String keywords;
 
     //第几页
@@ -32,7 +35,4 @@ public class MaterialDTO {
     //每页数据数
     @JsonProperty(value = "page_size")
     private Integer pageSize;
-
-    //签名信息
-    private String signature;
 }

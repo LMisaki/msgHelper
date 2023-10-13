@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import static com.msgHelper.msghelper.constant.TypeConstant.STATUS_ENABLE;
+
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
         String mobile = sha256.digestHex(jsonObject.getString("mobile"));
 
         //通过加密后的手机号获得数据库信息
-        return userMapper.getByIphone(mobile);
+        return userMapper.getByIphone(mobile,STATUS_ENABLE);
 
 
     }

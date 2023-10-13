@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.msgHelper.msghelper.constant.TypeConstant.STATUS_ENABLE;
+
 @Slf4j
 @RestController
 @RequestMapping("/msghelper/api/v1/MaterialDetail/List")
@@ -35,9 +37,9 @@ public class MaterialController {
     public Result<MaterialVO> Page(@ParameterModel MaterialDTO materialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId,@RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
 
         materialDTO.setMaterialLibId(accountId);
+        materialDTO.setStatus(STATUS_ENABLE);
 
-        log.info("接收的消息为:{}",materialDTO);
-
+        log.info("分页查询内容:{}",materialDTO);
 
         List<Material> list= materialService.pageQuery(materialDTO);
         MaterialVO vo = MaterialVO.builder()

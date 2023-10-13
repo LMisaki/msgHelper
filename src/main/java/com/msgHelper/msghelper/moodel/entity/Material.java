@@ -56,8 +56,11 @@ public class Material {
     @JsonProperty(value = "file_size")
     private Long fileSize;
 
-    //排序？不知道干嘛的
+    //排序,界面显示顺序
     private Integer sort;
+
+    //当前状态
+    private Integer status;
 
     //创建类型，也不知道干嘛的，好像是组别的类型
     @JsonProperty(value = "create_type")

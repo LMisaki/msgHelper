@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.msgHelper.msghelper.mapper.MaterialMapper">
+    <select id="pageQuery" resultType="com.msgHelper.msghelper.moodel.entity.Material">
+        select * from msghelper.material
+        where material_lib_id =#{materialLibId}
+          and material_lg_id = #{materialLgId}
+          and content_type = #{contentType}
+          and status = #{status}
+        <if test="keywords != null">
+            and material_content REGEXP #{keywords}
+        </if>
+        order by sort desc
+    </select>
+</mapper>
