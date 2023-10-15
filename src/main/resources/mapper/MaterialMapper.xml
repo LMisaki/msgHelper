@@ -2,15 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.msgHelper.msghelper.mapper.MaterialMapper">
+
+    <insert id="insert">
+        insert into msghelper.material (material_lib_id, material_lg_id, content_type, material_name, material_content, content_detail,material_img, file_url, file_name, file_size, sort,create_time, update_time)
+        VALUES (#{materialLibId},#{materialLgId},#{contentType},#{materialName},#{materialContent},#{contentDetail},#{materialImg},#{fileUrl},#{fileName},#{fileSize},#{sort},#{createTime},#{updateTime})
+    </insert>
+
     <select id="pageQuery" resultType="com.msgHelper.msghelper.moodel.entity.Material">
         select * from msghelper.material
         where material_lib_id =#{materialLibId}
           and material_lg_id = #{materialLgId}
           and content_type = #{contentType}
           and status = #{status}
-        <if test="keywords != null">
+<!--        <if test="keywords != null or keywords != '' ">
             and material_content REGEXP #{keywords}
-        </if>
+        </if>-->
         order by sort desc
     </select>
+
+    <update id="update">
+        update msghelper.material
+        <set>
+            <if test="materialName != null and materialName !=''">
+                material_name=#{materialName},
+            </if>
+            <if test="materialContent != null and materialContent !=''">
+                material_content=#{materialContent},
+            </if>
+            <if test="fileUrl != null and fileUrl !=''">
+                file_url=#{fileUrl},
+            </if>
+            <if test="fileName != null and fileName !=''">
+                file_name=#{fileName},
+            </if>
+            <if test="fileSize != null">
+                file_size=#{fileSize},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+        </set>
+        <where>id=#{id}</where>
+    </update>
 </mapper>

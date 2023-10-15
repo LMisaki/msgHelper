@@ -6,33 +6,72 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class MaterialDTO {
 
-    //不同用户的分组仓库id？？
+    private Integer id;
+
+    //不同用户的分组仓库id
     @JsonProperty(value = "material_lib_id")
     private Integer materialLibId;
 
-    //当前选中哪个分组的id
+    //分组id
     @JsonProperty(value = "material_lg_id")
     private Integer materialLgId;
 
-    //内容分类
+    //类型，短语？图文？文件？，分别是1，2，3
     @JsonProperty(value = "content_type")
     private Integer contentType;
+
+    //高光？不知道干嘛的
+    private String highlight;
+
+    //名字
+    @JsonProperty(value = "material_name")
+    private String materialName;
+
+    //段落中的内容
+    @JsonProperty(value = "material_content")
+    private String materialContent;
+
+    //图文中的内容
+    @JsonProperty(value = "content_detail")
+    private String contentDetail;
+
+    //文件URL
+    @JsonProperty(value = "material_img")
+    private String materialImg;
+
+    //文件URL
+    @JsonProperty(value = "file_url")
+    private String fileUrl;
+
+    //文件名
+    @JsonProperty(value = "file_name")
+    private String fileName;
+
+    //文件大小
+    @JsonProperty(value = "file_size")
+    private Long fileSize;
+
+    //排序,界面显示顺序
+    private Integer sort;
 
     //当前状态
     private Integer status;
 
-    private String keywords;
+/*    //创建类型，官方/个人，已弃用
+    @JsonProperty(value = "create_type")
+    private Integer createType;*/
 
-    //第几页
-    private Integer page;
+    @JsonProperty(value = "create_time")
+    private LocalDateTime createTime;
 
-    //每页数据数
-    @JsonProperty(value = "page_size")
-    private Integer pageSize;
+    @JsonProperty(value = "update_time")
+    private LocalDateTime updateTime;
 }

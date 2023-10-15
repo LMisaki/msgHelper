@@ -3,6 +3,7 @@ package com.msgHelper.msghelper.controller;
 
 import com.msgHelper.msghelper.annotation.ParameterModel;
 import com.msgHelper.msghelper.moodel.dto.MaterialDTO;
+import com.msgHelper.msghelper.moodel.dto.MaterialSearchDTO;
 import com.msgHelper.msghelper.moodel.entity.Material;
 import com.msgHelper.msghelper.moodel.vo.MaterialVO;
 import com.msgHelper.msghelper.result.Result;
@@ -10,10 +11,7 @@ import com.msgHelper.msghelper.service.intf.MaterialService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +19,7 @@ import static com.msgHelper.msghelper.constant.TypeConstant.STATUS_ENABLE;
 
 @Slf4j
 @RestController
-@RequestMapping("/msghelper/api/v1/MaterialDetail/List")
+@RequestMapping("/msghelper/api/v1/MaterialDetail")
 public class MaterialController {
 
     @Autowired
@@ -33,19 +31,41 @@ public class MaterialController {
      * @return {@link Result<MaterialVO>}
      * @author L_Misaki
      */
-    @GetMapping
-    public Result<MaterialVO> Page(@ParameterModel MaterialDTO materialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId,@RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+    @GetMapping("/List")
+    public Result<MaterialVO> Page(@ParameterModel MaterialSearchDTO materialSearchDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
 
-        materialDTO.setMaterialLibId(accountId);
-        materialDTO.setStatus(STATUS_ENABLE);
+        materialSearchDTO.setMaterialLibId(accountId);
+        materialSearchDTO.setStatus(STATUS_ENABLE);
 
-        log.info("分页查询内容:{}",materialDTO);
+        log.info("分页查询内容:{}", materialSearchDTO);
 
-        List<Material> list= materialService.pageQuery(materialDTO);
+        List<Material> list= materialService.pageQuery(materialSearchDTO);
         MaterialVO vo = MaterialVO.builder()
                 .list(list)
                 .build();
 
         return Result.success(vo);
+    }
+
+    @PostMapping("/Create")
+    public Result CreateMaterial(@ParameterModel MaterialDTO materialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+        materialDTO.setMaterialLibId(accountId);
+
+        log.info("创建消息，参数为：{}", materialDTO);
+
+        materialService.CreateMaterial(materialDTO);
+
+        return Result.success();
+    }
+
+    @PostMapping("/Modify")
+    public Result ModifyMaterial(@ParameterModel MaterialDTO materialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+        materialDTO.setMaterialLibId(accountId);
+
+        log.info("修改消息，参数为：{}", materialDTO);
+
+        materialService.ModifyMaterial(materialDTO);
+
+        return Result.success();
     }
 }
