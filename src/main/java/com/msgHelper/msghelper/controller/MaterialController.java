@@ -4,6 +4,7 @@ package com.msgHelper.msghelper.controller;
 import com.msgHelper.msghelper.annotation.ParameterModel;
 import com.msgHelper.msghelper.moodel.dto.MaterialDTO;
 import com.msgHelper.msghelper.moodel.dto.MaterialSearchDTO;
+import com.msgHelper.msghelper.moodel.dto.SortMaterialDTO;
 import com.msgHelper.msghelper.moodel.entity.Material;
 import com.msgHelper.msghelper.moodel.vo.MaterialVO;
 import com.msgHelper.msghelper.result.Result;
@@ -35,7 +36,6 @@ public class MaterialController {
     public Result<MaterialVO> Page(@ParameterModel MaterialSearchDTO materialSearchDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
 
         materialSearchDTO.setMaterialLibId(accountId);
-        materialSearchDTO.setStatus(STATUS_ENABLE);
 
         log.info("分页查询内容:{}", materialSearchDTO);
 
@@ -65,6 +65,17 @@ public class MaterialController {
         log.info("修改消息，参数为：{}", materialDTO);
 
         materialService.ModifyMaterial(materialDTO);
+
+        return Result.success();
+    }
+
+    @PostMapping("/ModifyLocation")
+    public Result SortMaterial(@ParameterModel SortMaterialDTO sortMaterialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+        sortMaterialDTO.setMaterialLibId(accountId);
+
+        log.info("排序消息，参数为：{}", sortMaterialDTO);
+
+        materialService.SortMaterial(sortMaterialDTO);
 
         return Result.success();
     }

@@ -57,7 +57,8 @@ public class Material {
     private Long fileSize;
 
     //排序,界面显示顺序
-    private Integer sort;
+    @JsonProperty(value = "sort_index")
+    private Integer sortIndex;
 
     //当前状态
     private Integer status;

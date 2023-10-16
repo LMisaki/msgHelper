@@ -2,6 +2,7 @@ package com.msgHelper.msghelper.service.intf;
 
 import com.msgHelper.msghelper.moodel.dto.MaterialDTO;
 import com.msgHelper.msghelper.moodel.dto.MaterialSearchDTO;
+import com.msgHelper.msghelper.moodel.dto.SortMaterialDTO;
 import com.msgHelper.msghelper.moodel.entity.Material;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +16,6 @@ public interface   MaterialService {
     void CreateMaterial(MaterialDTO materialTO);
 
     void ModifyMaterial(MaterialDTO materialDTO);
+
+    void SortMaterial(SortMaterialDTO sortMaterialDTO);
 }
