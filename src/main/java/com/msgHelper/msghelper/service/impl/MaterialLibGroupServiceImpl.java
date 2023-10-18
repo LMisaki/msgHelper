@@ -2,13 +2,19 @@ package com.msgHelper.msghelper.service.impl;
 
 import com.msgHelper.msghelper.mapper.MaterialLibGroupMapper;
 import com.msgHelper.msghelper.moodel.dto.MaterialLibGroupDTO;
+import com.msgHelper.msghelper.moodel.dto.SortLibGroupDTO;
+import com.msgHelper.msghelper.moodel.dto.SortMaterialDTO;
+import com.msgHelper.msghelper.moodel.entity.Material;
 import com.msgHelper.msghelper.moodel.entity.MaterialLibGroup;
 import com.msgHelper.msghelper.service.intf.MaterialLibGroupService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.msgHelper.msghelper.constant.TypeConstant.*;
@@ -41,15 +47,32 @@ public class MaterialLibGroupServiceImpl implements MaterialLibGroupService {
         materialLibGroupDTO.setCreateType(MATERIAL_GROUP_PERSONAL);
         materialLibGroupDTO.setStatus(STATUS_ENABLE);
 
-        //插入新建数据
-        materialLibGroupMapper.insert(materialLibGroupDTO);
+        MaterialLibGroup materialLibGroup = new MaterialLibGroup();
+        BeanUtils.copyProperties(materialLibGroupDTO,materialLibGroup);
+
+        materialLibGroupMapper.insert(materialLibGroup);
+        //排序索引，初始化和主键保持一致
+        materialLibGroupMapper.setSort(materialLibGroup.getId());
     }
 
     @Override
     public void ModifyLibGroup(MaterialLibGroupDTO materialLibGroupDTO) {
         materialLibGroupDTO.setUpdateTime(LocalDateTime.now());
 
+        MaterialLibGroup materialLibGroup = new MaterialLibGroup();
+        BeanUtils.copyProperties(materialLibGroupDTO,materialLibGroup);
+        List<MaterialLibGroup> list = new ArrayList<>();
+        list.add(materialLibGroup);
+
         //更新数据
-        materialLibGroupMapper.UpdateLibGroup(materialLibGroupDTO);
+        materialLibGroupMapper.UpdateLibGroup(list);
+    }
+
+
+    @Override
+    public void ModifyLocation(List<MaterialLibGroup> list) {
+
+        //更新数据
+        materialLibGroupMapper.UpdateLibGroup(list);
     }
 }

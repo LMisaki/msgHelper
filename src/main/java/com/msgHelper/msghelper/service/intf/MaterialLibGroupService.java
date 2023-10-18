@@ -2,6 +2,7 @@ package com.msgHelper.msghelper.service.intf;
 
 
 import com.msgHelper.msghelper.moodel.dto.MaterialLibGroupDTO;
+import com.msgHelper.msghelper.moodel.dto.SortLibGroupDTO;
 import com.msgHelper.msghelper.moodel.entity.MaterialLibGroup;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,6 @@ public interface MaterialLibGroupService {
     void creatLibGroup(MaterialLibGroupDTO materialLibGroupDTO);
 
     void ModifyLibGroup(MaterialLibGroupDTO materialLibGroupDTO);
+
+    void ModifyLocation(List<MaterialLibGroup> list);
 }

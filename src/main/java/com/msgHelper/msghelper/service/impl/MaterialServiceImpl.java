@@ -30,18 +30,12 @@ public class MaterialServiceImpl implements MaterialService {
     public List<Material> pageQuery(MaterialSearchDTO materialSearchDTO) {
 
         materialSearchDTO.setStatus(STATUS_ENABLE);
+        materialSearchDTO.setKeywords(materialSearchDTO.getKeywords().replace(' ','|'));
 
         Material material = new Material();
         BeanUtils.copyProperties(materialSearchDTO,material);
 
         Page<Object> page = PageHelper.startPage(materialSearchDTO.getPage(), materialSearchDTO.getPageSize());
-
-        //TODO 分页查询优化正则表达式
-        /*将 空格 替换为 .* 用于正则表达式 查找关键字*/
-/*        if (materialSearchDTO.getKeywords() !=  "" ){
-//            materialDTO.setKeywords(materialDTO.getKeywords().replace(" ", ".*"));
-            materialSearchDTO.setKeywords("con.*");
-        }*/
 
         log.info("查询关键词为：{}", materialSearchDTO.getKeywords());
 

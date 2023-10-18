@@ -47,6 +47,14 @@ public class MaterialController {
         return Result.success(vo);
     }
 
+    /**
+     * Desc: 创建物料
+     * @param materialDTO
+     * @param accountId
+     * @param token
+     * @return {@link Result}
+     * @author L_Misaki
+     */
     @PostMapping("/Create")
     public Result CreateMaterial(@ParameterModel MaterialDTO materialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
         materialDTO.setMaterialLibId(accountId);
@@ -58,6 +66,14 @@ public class MaterialController {
         return Result.success();
     }
 
+    /**
+     * Desc: 修改内容（包括状态）
+     * @param materialDTO
+     * @param accountId
+     * @param token
+     * @return {@link Result}
+     * @author L_Misaki
+     */
     @PostMapping("/Modify")
     public Result ModifyMaterial(@ParameterModel MaterialDTO materialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
         materialDTO.setMaterialLibId(accountId);
@@ -69,6 +85,14 @@ public class MaterialController {
         return Result.success();
     }
 
+    /**
+     * Desc: 修改位置
+     * @param sortMaterialDTO
+     * @param accountId
+     * @param token
+     * @return {@link Result}
+     * @author L_Misaki
+     */
     @PostMapping("/ModifyLocation")
     public Result SortMaterial(@ParameterModel SortMaterialDTO sortMaterialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
         sortMaterialDTO.setMaterialLibId(accountId);

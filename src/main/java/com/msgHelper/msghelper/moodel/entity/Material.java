@@ -60,6 +60,9 @@ public class Material {
     @JsonProperty(value = "sort_index")
     private Integer sortIndex;
 
+    //关键字，用于查询
+    private String keywords;
+
     //当前状态
     private Integer status;
 

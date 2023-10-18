@@ -32,6 +32,9 @@ public class MaterialLibGroup implements Serializable {
     //当前状态
     private Integer status;
 
+    //排序索引
+    private Integer sort;
+
     //创建时间
     @JsonProperty(value = "create_time")
     private LocalDateTime createTime;

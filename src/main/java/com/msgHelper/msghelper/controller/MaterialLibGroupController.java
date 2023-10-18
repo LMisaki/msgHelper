@@ -1,12 +1,16 @@
 package com.msgHelper.msghelper.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.msgHelper.msghelper.annotation.ParameterModel;
 import com.msgHelper.msghelper.moodel.dto.MaterialLibGroupDTO;
+import com.msgHelper.msghelper.moodel.dto.SortLibGroupDTO;
 import com.msgHelper.msghelper.moodel.entity.MaterialLibGroup;
 import com.msgHelper.msghelper.moodel.vo.MaterialGroupVO;
 import com.msgHelper.msghelper.result.Result;
 import com.msgHelper.msghelper.service.intf.MaterialLibGroupService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.valves.JsonAccessLogValve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +24,6 @@ public class MaterialLibGroupController {
     @Autowired
     private MaterialLibGroupService materialLibGroupService;
 
-    //TODO 需要改写成先获取用户，再获取用户id的分组
     /**
      * Desc: 获取全部有效的分组别表
      * @param materialLibGroupDTO
@@ -78,4 +81,24 @@ public class MaterialLibGroupController {
 
         return Result.success();
     }
+
+    /**
+     * Desc: 移动分组位置
+     * @param sort_data
+     * @param accountId
+     * @param token
+     * @return {@link Result}
+     * @author L_Misaki
+     */
+    @PostMapping("/ModifyLocation")
+    public Result ModifyLibGroup(String sort_data, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+        List<MaterialLibGroup> list = JSON.parseArray(sort_data, MaterialLibGroup.class);
+
+        log.info("移动分组位置");
+
+        materialLibGroupService.ModifyLocation(list);
+
+        return Result.success();
+    }
+
 }
