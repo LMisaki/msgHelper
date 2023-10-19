@@ -94,7 +94,7 @@ public class MaterialController {
      * @author L_Misaki
      */
     @PostMapping("/ModifyLocation")
-    public Result SortMaterial(@ParameterModel SortMaterialDTO sortMaterialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+    public Result SortMaterial(@RequestBody SortMaterialDTO sortMaterialDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
         sortMaterialDTO.setMaterialLibId(accountId);
 
         log.info("排序消息，参数为：{}", sortMaterialDTO);

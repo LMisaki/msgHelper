@@ -1,5 +1,6 @@
 package com.msgHelper.msghelper.annotation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValues;
 import org.springframework.core.MethodParameter;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
 /**
  * 将请求参数带有下划线转驼峰命名
  */
+@Slf4j
 public class UnderlineToCamelArgumentResolver extends ServletModelAttributeMethodProcessor {
 
     public UnderlineToCamelArgumentResolver(boolean annotationNotRequired) {
@@ -30,6 +32,7 @@ public class UnderlineToCamelArgumentResolver extends ServletModelAttributeMetho
         // 将key-value封装为map，传给bind方法进行参数值绑定
         Map<String, String> map = new HashMap<>();
         Map<String, String[]> params = request.getParameterMap();
+
 
         for (Map.Entry<String, String[]> entry : params.entrySet()) {
             String name = entry.getKey();

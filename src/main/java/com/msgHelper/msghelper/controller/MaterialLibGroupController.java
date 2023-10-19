@@ -84,17 +84,18 @@ public class MaterialLibGroupController {
 
     /**
      * Desc: 移动分组位置
-     * @param sort_data
      * @param accountId
      * @param token
      * @return {@link Result}
      * @author L_Misaki
      */
     @PostMapping("/ModifyLocation")
-    public Result ModifyLibGroup(String sort_data, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
-        List<MaterialLibGroup> list = JSON.parseArray(sort_data, MaterialLibGroup.class);
+    public Result ModifyLibGroup(@RequestBody SortLibGroupDTO sortLibGroupDTO, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_ID") Integer accountId, @RequestHeader(value = "HTTP_X_YS_ACCOUNT_TOKEN") String token){
+        sortLibGroupDTO.setMaterialLibId(accountId);
 
-        log.info("移动分组位置");
+        List<MaterialLibGroup> list = JSON.parseArray(sortLibGroupDTO.getSort_data(), MaterialLibGroup.class);
+
+        log.info("移动分组位置:{}",list);
 
         materialLibGroupService.ModifyLocation(list);
 
